@@ -1,0 +1,19 @@
+.Navbar{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.Authbox button{
+    margin: 1vmax;
+    width: 7vmax;
+    height: 2vmax;
+    background-color: rgb(48, 114, 255);
+    color: white;
+    border: none;
+    font-size: 14px;
+    border-radius: 9px;
+    cursor: pointer;
+}
+.logo h1{
+    margin: 1vmax;
+}
