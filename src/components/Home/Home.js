@@ -10,6 +10,10 @@ const Home = ({ User, Authtoken,setLoading }) => {
   const [recordType, setRecordType] = useState('');
   const [recordName, setRecordName] = useState('');
 
+
+  const handleRefresh=()=>{
+    window.location.reload();
+  }
   const handleSearch = async () => {
 
     try {
@@ -89,7 +93,7 @@ useEffect(()=>{
     <>
       <div className="search">
         <div>
-          <button onClick={handleSearch}>Fetch All Records</button>
+          <button onClick={handleRefresh}>Fetch All Records</button>
         </div>
       </div>
       <div className="add-update-delete">
