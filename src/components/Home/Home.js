@@ -58,7 +58,7 @@ const Home = ({ User, Authtoken,setLoading }) => {
       });
 
       toast.success("Record added successfully");
-      // You can update the UI or fetch DNS records again after adding
+    
     } catch (error) {
       toast.error("Error adding record:");
     }
@@ -75,11 +75,11 @@ const Home = ({ User, Authtoken,setLoading }) => {
             "Content-Type": "application/json",
             Authorization: Authtoken,
           }
-         // Send data in the request body for DELETE requests
+        
       });
 
       toast.success("Record Deleted Succesfully");
-      // You can update the UI or fetch DNS records again after deleting
+ 
     } catch (error) {
         toast.error("Not Deleted");
     }

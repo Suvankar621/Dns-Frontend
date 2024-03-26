@@ -33,7 +33,7 @@ const Login = ({isAuthenticated,setisAuthenticated,setLoading,loading}) => {
    
   }
   if (loading) {
-    return <div className="App"><Loader /></div>; // Display loader while loading
+    return <div className="App"><Loader /></div>; 
   }
   if(isAuthenticated) return <Navigate to={"/"}/>
 

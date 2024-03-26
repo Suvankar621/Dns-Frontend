@@ -13,24 +13,24 @@ import "./App.css"
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [user, setUser] = useState(false);
-  const [loading, setLoading] = useState(true); // Set initial loading state to true
+  const [loading, setLoading] = useState(true); 
   const [authToken, setAuthToken] = useState('');
 
   useEffect(() => {
     axios.get("https://dns-management-system-backend-azure.onrender.com/api/v1/users/me", {
       withCredentials: true,
     }).then(res => {
-      setLoading(false); // Set loading to false when request is completed
+      setLoading(false); 
       setUser(res.data.user);
       setIsAuthenticated(true);
       setAuthToken(res.data.authtoken);
     }).catch(error => {
-      setLoading(false); // Set loading to false even if there's an error
+      setLoading(false); 
     });
   }, []);
 
   if (loading) {
-    return <div className="App"><Loader /></div>; // Display loader while loading
+    return <div className="App"><Loader /></div>; 
   }
 
   return (
