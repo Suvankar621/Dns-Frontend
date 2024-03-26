@@ -5,7 +5,7 @@
     flex-direction: column;
     background-color: rgb(73, 73, 73);
     width: 30%;
-    height: 42vmax;
+    height: 43vmax;
     margin: auto;
 }
 .SigninContainer h1{
@@ -21,7 +21,7 @@ form{
 form input{
     margin: 1vmax;
     width: 70%;
-    padding: 10px;
+    padding: 5px;
     border-radius: 9px;
     border: none;
 }

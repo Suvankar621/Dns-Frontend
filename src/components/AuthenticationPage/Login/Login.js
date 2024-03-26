@@ -4,6 +4,7 @@ import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import "./Login.css";
 import { Navigate } from "react-router-dom";
+import Loader from "../../Loader/Loader";
 
 const Login = ({isAuthenticated,setisAuthenticated}) => {
   const [email,setemail]=useState("")
@@ -29,6 +30,9 @@ const Login = ({isAuthenticated,setisAuthenticated}) => {
    
   }
   if(isAuthenticated) return <Navigate to={"/"}/>
+  else {
+    <Loader/>
+  }
   return (
     <div className="LoginContainer">
       <h1>Login</h1>
