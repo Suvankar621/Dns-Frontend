@@ -48,3 +48,15 @@ table td{
  
 
 }
+.searchfield{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+}
+.searchfield input{
+    margin: 1vmax;
+    width: 78.5%;
+    padding: 0.5vmax;
+}

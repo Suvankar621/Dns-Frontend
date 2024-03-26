@@ -9,15 +9,14 @@ const Home = ({ User, Authtoken,setLoading }) => {
   const [dnsdata, setdnsdata] = useState([]);
   const [recordType, setRecordType] = useState('');
   const [recordName, setRecordName] = useState('');
+  const [searchQuery, setSearchQuery] = useState('');
 
-
-  const handleRefresh=()=>{
+  const handleRefresh = () => {
     window.location.reload();
   }
-  const handleSearch = async () => {
 
+  const handleSearch = async () => {
     try {
-      
       const URL = `https://management.azure.com/subscriptions/${User.subscriptionid}/resourceGroups/${User.resourcegroupname}/providers/Microsoft.Network/dnsZones/${User.Zone}/all?api-version=2018-05-01`;
       const { data } = await axios.get(URL, {
         headers: {
@@ -25,7 +24,6 @@ const Home = ({ User, Authtoken,setLoading }) => {
           Authorization: Authtoken,
         },
       });
- 
       setdnsdata(data.value);
     } catch (error) {
       console.error('Error:', error);
@@ -34,8 +32,7 @@ const Home = ({ User, Authtoken,setLoading }) => {
 
   const handleAddRecord = async () => {
     try {
-
-      const URL = `https://management.azure.com/subscriptions/${User.subscriptionid}/resourceGroups/${User.resourcegroupname}/providers/Microsoft.Network/dnsZones/${User.Zone}/${recordType}/${recordName}?api-version=2018-05-01`; // Replace with your endpoint URL
+      const URL = `https://management.azure.com/subscriptions/${User.subscriptionid}/resourceGroups/${User.resourcegroupname}/providers/Microsoft.Network/dnsZones/${User.Zone}/${recordType}/${recordName}?api-version=2018-05-01`;
       const r=`${recordName}Records`
       const requestBody = {
         properties: {
@@ -50,50 +47,53 @@ const Home = ({ User, Authtoken,setLoading }) => {
           ],
         },
       };
-    await axios.put(URL, requestBody, {
+      await axios.put(URL, requestBody, {
         headers: {
           'Content-Type': 'application/json',
           Authorization: Authtoken,
         },
       });
-
       toast.success("Record added successfully");
-    
     } catch (error) {
       toast.error("Error adding record:");
     }
   };
 
- 
   const handleDeleteRecord = async () => {
     try {
-  
-      const URL = `https://management.azure.com/subscriptions/${User.subscriptionid}/resourceGroups/${User.resourcegroupname}/providers/Microsoft.Network/dnsZones/${User.Zone}/${recordType}/${recordName}?api-version=2018-05-01`; // Replace with your endpoint URL
-    
-       await axios.delete(URL, {
+      const URL = `https://management.azure.com/subscriptions/${User.subscriptionid}/resourceGroups/${User.resourcegroupname}/providers/Microsoft.Network/dnsZones/${User.Zone}/${recordType}/${recordName}?api-version=2018-05-01`;
+      await axios.delete(URL, {
         headers: {
             "Content-Type": "application/json",
             Authorization: Authtoken,
           }
-        
       });
-
       toast.success("Record Deleted Succesfully");
- 
     } catch (error) {
         toast.error("Not Deleted");
     }
   };
-useEffect(()=>{
-    handleSearch();
-},[dnsdata])
 
+  useEffect(() => {
+    handleSearch();
+  }, [dnsdata])
+
+  // Filter DNS records based on search query
+  const filteredDnsData = dnsdata.filter(record =>
+    record.name.toLowerCase().includes(searchQuery.toLowerCase())
+  );
 
   return (
     <>
       <div className="search">
-        <div>
+        <div className='searchfield'>
           <button onClick={handleRefresh}>Fetch All Records</button>
+          <input
+            type="text"
+            placeholder="Search DNS Records"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+          />
         </div>
       </div>
       <div className="add-update-delete">
@@ -121,7 +121,7 @@ useEffect(()=>{
             </tr>
           </thead>
           <tbody>
-            {dnsdata.map((th, index) => (
+            {filteredDnsData.map((th, index) => (
               <tr key={index}>
                 <td>{th.name}</td>
                 <td>{th.type}</td>
