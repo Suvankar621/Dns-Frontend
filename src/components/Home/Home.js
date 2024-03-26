@@ -3,9 +3,9 @@ import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import "./Home.css"
 import React, { useEffect, useState } from 'react';
-import Loader from '../Loader/Loader';
 
-const Home = ({ User, Authtoken,setLoading,loading }) => {
+
+const Home = ({ User, Authtoken,setLoading }) => {
   const [dnsdata, setdnsdata] = useState([]);
   const [recordType, setRecordType] = useState('');
   const [recordName, setRecordName] = useState('');
@@ -13,7 +13,7 @@ const Home = ({ User, Authtoken,setLoading,loading }) => {
   const handleSearch = async () => {
 
     try {
-      setLoading(true);
+      
       const URL = `https://management.azure.com/subscriptions/${User.subscriptionid}/resourceGroups/${User.resourcegroupname}/providers/Microsoft.Network/dnsZones/${User.Zone}/all?api-version=2018-05-01`;
       const { data } = await axios.get(URL, {
         headers: {
@@ -21,7 +21,7 @@ const Home = ({ User, Authtoken,setLoading,loading }) => {
           Authorization: Authtoken,
         },
       });
-      setLoading(false);
+ 
       setdnsdata(data.value);
     } catch (error) {
       console.error('Error:', error);
@@ -30,7 +30,7 @@ const Home = ({ User, Authtoken,setLoading,loading }) => {
 
   const handleAddRecord = async () => {
     try {
-      setLoading(true)
+
       const URL = `https://management.azure.com/subscriptions/${User.subscriptionid}/resourceGroups/${User.resourcegroupname}/providers/Microsoft.Network/dnsZones/${User.Zone}/${recordType}/${recordName}?api-version=2018-05-01`; // Replace with your endpoint URL
       const r=`${recordName}Records`
       const requestBody = {
@@ -52,7 +52,7 @@ const Home = ({ User, Authtoken,setLoading,loading }) => {
           Authorization: Authtoken,
         },
       });
-      setLoading(false)
+
       toast.success("Record added successfully");
       // You can update the UI or fetch DNS records again after adding
     } catch (error) {
@@ -63,7 +63,7 @@ const Home = ({ User, Authtoken,setLoading,loading }) => {
  
   const handleDeleteRecord = async () => {
     try {
-      setLoading(true)
+  
       const URL = `https://management.azure.com/subscriptions/${User.subscriptionid}/resourceGroups/${User.resourcegroupname}/providers/Microsoft.Network/dnsZones/${User.Zone}/${recordType}/${recordName}?api-version=2018-05-01`; // Replace with your endpoint URL
     
        await axios.delete(URL, {
@@ -73,7 +73,7 @@ const Home = ({ User, Authtoken,setLoading,loading }) => {
           }
          // Send data in the request body for DELETE requests
       });
-      setLoading(false)
+
       toast.success("Record Deleted Succesfully");
       // You can update the UI or fetch DNS records again after deleting
     } catch (error) {
@@ -84,9 +84,7 @@ useEffect(()=>{
     handleSearch();
 },[dnsdata])
 
-if (loading) {
-  return <div className="App"><Loader /></div>; // Display loader while loading
-}
+
   return (
     <>
       <div className="search">
