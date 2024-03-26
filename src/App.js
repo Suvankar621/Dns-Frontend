@@ -39,9 +39,9 @@ function App() {
       
       <ToastContainer />
       <Routes>
-        <Route path='/' element={<Home User={user} Authtoken={authToken} />} />
-        <Route path='/login' element={<Login isAuthenticated={isAuthenticated} setisAuthenticated={setIsAuthenticated} />} />
-        <Route path='/register' element={<Register isAuthenticated={isAuthenticated} setisAuthenticated={setIsAuthenticated} />} />
+        <Route path='/' element={<Home User={user} Authtoken={authToken} setLoading={setLoading}/>} />
+        <Route path='/login' element={<Login isAuthenticated={isAuthenticated} setisAuthenticated={setIsAuthenticated} setLoading={setLoading} />} />
+        <Route path='/register' element={<Register isAuthenticated={isAuthenticated} setisAuthenticated={setIsAuthenticated} setLoading={setLoading} />} />
       </Routes>
     </Router>
   );

@@ -6,13 +6,14 @@ import "./Login.css";
 import { Navigate } from "react-router-dom";
 import Loader from "../../Loader/Loader";
 
-const Login = ({isAuthenticated,setisAuthenticated}) => {
+const Login = ({isAuthenticated,setisAuthenticated,setLoading}) => {
   const [email,setemail]=useState("")
   const [password,setpassword]=useState("")
 
   const handleSubmitLogin=async(e)=>{
     e.preventDefault();
     try {
+      setLoading(true);
         const {data}=await axios.post("https://dns-management-system-backend-azure.onrender.com/api/v1/users/login",{
           email,
           password
@@ -22,6 +23,7 @@ const Login = ({isAuthenticated,setisAuthenticated}) => {
             },
             withCredentials:true,
         })
+        setLoading(false);
         setisAuthenticated(true);
         toast.success(data.message);
     } catch (error) {

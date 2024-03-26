@@ -5,7 +5,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import "./Register.css"
 import { Navigate } from 'react-router-dom';
 
-const Register = ({isAuthenticated,setisAuthenticated}) => {
+const Register = ({isAuthenticated,setisAuthenticated,setLoading}) => {
     const [name,setname]=useState("")
     const [email,setemail]=useState("")
     const [subscriptionid,setsubscriptionid]=useState("")
@@ -19,6 +19,7 @@ const Register = ({isAuthenticated,setisAuthenticated}) => {
     const submitHandaler=async(e)=>{
         e.preventDefault();
         try {
+            setLoading(true);
             const {data}=await axios.post("https://dns-management-system-backend-azure.onrender.com/api/v1/users/register",{
                 name,
                 email,
@@ -36,6 +37,7 @@ const Register = ({isAuthenticated,setisAuthenticated}) => {
                 withCredentials:true,
             })
             setisAuthenticated(true);
+            setLoading(false)
             console.log(isAuthenticated)
             toast.success(data.message);
         } catch (error) {
