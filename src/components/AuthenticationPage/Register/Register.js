@@ -4,8 +4,9 @@ import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import "./Register.css"
 import { Navigate } from 'react-router-dom';
+import Loader from '../../Loader/Loader';
 
-const Register = ({isAuthenticated,setisAuthenticated,setLoading}) => {
+const Register = ({isAuthenticated,setisAuthenticated,setLoading,loading}) => {
     const [name,setname]=useState("")
     const [email,setemail]=useState("")
     const [subscriptionid,setsubscriptionid]=useState("")
@@ -46,6 +47,9 @@ const Register = ({isAuthenticated,setisAuthenticated,setLoading}) => {
        
 
     }
+    if (loading) {
+        return <div className="App"><Loader /></div>; // Display loader while loading
+      }
     if(isAuthenticated) return <Navigate to={"/"}/>
   return (
     <>
@@ -55,15 +59,15 @@ const Register = ({isAuthenticated,setisAuthenticated,setLoading}) => {
     <h1>Register</h1>
 
     <form onSubmit={submitHandaler}>
-      <input type="text" value={name} id="name" placeholder="Enter your Name"  onChange={(e)=>setname(e.target.value)}/>
-      <input type="email" value={email} id="email" placeholder="Enter your Email" onChange={(e)=>setemail(e.target.value)}/>
-      <input type="text" value={subscriptionid} id="subscriptionid" placeholder="Enter your Azure subscriptionid" onChange={(e)=>setsubscriptionid(e.target.value)}/>
-      <input type="text" value={clientid} id="clientid" placeholder="Enter your Azure clientid" onChange={(e)=>setclientid(e.target.value)}/>
-      <input type="text" value={client_secret} id="client_secret" placeholder="Enter your Azure client_secret" onChange={(e)=>setclient_secret(e.target.value)}/>
-      <input type="text" value={tenantId} id="tenantId" placeholder="Enter your Azure tenantId" onChange={(e)=>settenantId(e.target.value)}/>
-      <input type="text" value={Zone} id="tenantId" placeholder="Enter your Azure tenantId" onChange={(e)=>setZone(e.target.value)}/>
-      <input type="text" value={resourcegroupname} id="tenantId" placeholder="Enter your Azure tenantId" onChange={(e)=>setresourcegroupname(e.target.value)}/>
-      <input type="password" value={password} id="password" placeholder="Create Your Password" onChange={(e)=>setpassword(e.target.value)} />
+      <input type="text" value={name} id="name" placeholder="Enter your Name"  onChange={(e)=>setname(e.target.value)} required />
+      <input type="email" value={email} id="email" placeholder="Enter your Email" onChange={(e)=>setemail(e.target.value)} required />
+      <input type="text" value={subscriptionid} id="subscriptionid" placeholder="Enter your Azure subscriptionid" onChange={(e)=>setsubscriptionid(e.target.value)} required/>
+      <input type="text" value={clientid} id="clientid" placeholder="Enter your Azure clientid" onChange={(e)=>setclientid(e.target.value)} required/>
+      <input type="text" value={client_secret} id="client_secret" placeholder="Enter your Azure client_secret" onChange={(e)=>setclient_secret(e.target.value)} required/>
+      <input type="text" value={tenantId} id="tenantId" placeholder="Enter your Azure tenantId" onChange={(e)=>settenantId(e.target.value)} required/>
+      <input type="text" value={Zone} id="tenantId" placeholder="Enter your Azure tenantId" onChange={(e)=>setZone(e.target.value)} required/>
+      <input type="text" value={resourcegroupname} id="tenantId" placeholder="Enter your Azure tenantId" onChange={(e)=>setresourcegroupname(e.target.value)} required/>
+      <input type="password" value={password} id="password" placeholder="Create Your Password" onChange={(e)=>setpassword(e.target.value)} required />
       <button>Register</button>
     </form>
   </div>

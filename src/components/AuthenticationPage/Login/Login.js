@@ -6,7 +6,7 @@ import "./Login.css";
 import { Navigate } from "react-router-dom";
 import Loader from "../../Loader/Loader";
 
-const Login = ({isAuthenticated,setisAuthenticated,setLoading}) => {
+const Login = ({isAuthenticated,setisAuthenticated,setLoading,loading}) => {
   const [email,setemail]=useState("")
   const [password,setpassword]=useState("")
 
@@ -31,10 +31,11 @@ const Login = ({isAuthenticated,setisAuthenticated,setLoading}) => {
     }
    
   }
-  if(isAuthenticated) return <Navigate to={"/"}/>
-  else {
-    <Loader/>
+  if (loading) {
+    return <div className="App"><Loader /></div>; // Display loader while loading
   }
+  if(isAuthenticated) return <Navigate to={"/"}/>
+
   return (
     <div className="LoginContainer">
       <h1>Login</h1>

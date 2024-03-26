@@ -3,8 +3,9 @@ import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import "./Home.css"
 import React, { useEffect, useState } from 'react';
+import Loader from '../Loader/Loader';
 
-const Home = ({ User, Authtoken,setLoading }) => {
+const Home = ({ User, Authtoken,setLoading,loading }) => {
   const [dnsdata, setdnsdata] = useState([]);
   const [recordType, setRecordType] = useState('');
   const [recordName, setRecordName] = useState('');
@@ -82,6 +83,10 @@ const Home = ({ User, Authtoken,setLoading }) => {
 useEffect(()=>{
     handleSearch();
 },[dnsdata])
+
+if (loading) {
+  return <div className="App"><Loader /></div>; // Display loader while loading
+}
   return (
     <>
       <div className="search">
