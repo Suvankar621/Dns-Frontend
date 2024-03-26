@@ -27,6 +27,7 @@ const Login = ({isAuthenticated,setisAuthenticated,setLoading,loading}) => {
         setisAuthenticated(true);
         toast.success(data.message);
     } catch (error) {
+      setLoading(false);
         toast.error("Invalid Credentials");
     }
    

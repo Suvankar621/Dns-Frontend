@@ -42,6 +42,7 @@ const Register = ({isAuthenticated,setisAuthenticated,setLoading,loading}) => {
             console.log(isAuthenticated)
             toast.success(data.message);
         } catch (error) {
+            setLoading(false);
             toast.error("Invalid Credentials");
         }
        
